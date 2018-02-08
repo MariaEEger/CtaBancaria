@@ -6,59 +6,50 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class Conta {
+	
+	// Atributos da Conta
 	private String titularDaConta;
-	private int tipoConta;/* (1-conta poupanï¿½a, 2-conta corrente) */
+	private int tipoConta;/* (1-conta poupanca, 2-conta corrente) */
 	private double saldo;
 	private List<Movimentacao> listaDeMovimentacao = new ArrayList<Movimentacao>();
 	
-
-	
-	// Getters e Setters abaixo, respectivamente buscam e alteram atributos da
-	// classe Conta//
-
-	// Mï¿½todo que busca(get) a tï¿½tular da conta
+	// Métodos que alteram atributos da Conta
+	// Busca o titular da conta
 	public String getTitularDaConta() {
-		return this.titularDaConta;// retorna a string itularDaConta quando o
-									// mï¿½todo getiTitularDaConta for usado
+		return this.titularDaConta;
 	}
 
-	// Mï¿½todo que recebe a alteraï¿½ï¿½o(set) do titularDaConta(atributo) da conta
+	// Altera o titula da conta
 	public void setTitularDaConta(String titularDaConta) {
-		this.titularDaConta = titularDaConta;// recebe a alteraï¿½ï¿½o da string
-												// titularDaConta quando o
-												// mï¿½todo setTitularDaConta for
-												// usado
+		this.titularDaConta = titularDaConta;
 	}
 
-	// Mï¿½todo que busca(get) o tipo da conta
+	// Busca o tipo da conta
 	public int getTipoConta() {
-		return this.tipoConta;// retorna o int tipo quando o mï¿½todo getTipo for usado
+		return this.tipoConta;
 	}
 
-	// Mï¿½todo que recebe a alteraï¿½ï¿½o(set) do tipo da conta
+	// Altera o tipo da conta
 	public void setTipoConta(int tipo) {
-		this.tipoConta = tipoConta;// recebe a alteraï¿½ï¿½o do int tipo da conta quando o
-							// mï¿½todo setTipo for usado
+		this.tipoConta = tipoConta;
 	}
 
-	// Mï¿½todo que busca(get) o Saldo da conta
+	// Busca o saldo da conta
 	public double getSaldo() {
-		return this.saldo;// retorna o double Saldo quando o mï¿½todo getSaldo for
-							// usado
+		return this.saldo;
 	}
 
-	// Mï¿½todo que recebe a alteraï¿½ï¿½o(set) do Saldo da conta
+	// Altera o Saldo da conta
 	public void setSaldo(double saldo) {
-		this.saldo = saldo;// recebe a alteraï¿½ï¿½o do double Saldo da conta quando
-							// o mï¿½todo setSaldo for usado
+		this.saldo = saldo;
 	}
 
-	// Busca todos os carros vendidos
+	// Busca todos os movimentos
 	public List<Movimentacao> getListaDeMovimentacao() {
 		return this.listaDeMovimentacao;
 	}
 
-	// Busca todos os carros vendidos
+	// Altera movimentos
 	public void setListaDeMovimentacao(List<Movimentacao> listaDeMovimentacao) {
 		this.listaDeMovimentacao = listaDeMovimentacao;
 	}

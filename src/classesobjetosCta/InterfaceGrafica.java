@@ -8,152 +8,125 @@ import javax.swing.JOptionPane;
 
 public class InterfaceGrafica {
 
-	// Objetos criados com a respectiva classe que ser� movimentada por ele
+	
 	Conta conta = new Conta();
 	Movimentacao mvto = new Movimentacao();
 	double sld = 0;
 
 	public void exibirMenu() {
 
-		// Estrutura de repetição para perguntar ao usu�rio qual a opnião de
-		// menu
 		JOptionPane.showMessageDialog(null,
 				"*********************************\n"
 						+ "       Bem-vindo ao banco     \n"
 						+ "              Dona Maria!      \n"
-						+ "Sua dívida é a nossa alegria!\n"
-						+ "*********************************");
+						+ "Sua d�vida � a nossa alegria!\n"
+						+ "*********************************");	
+		
 		String titular = JOptionPane
 				.showInputDialog("Informe o nome do titular da conta: ");
 		conta.setTitularDaConta(titular);
 		int tipo = Integer.parseInt(JOptionPane
 				.showInputDialog("Informe o nome do tipo da conta: \n"
-						+ "1 - Conta Poupança\n" + "2 - Conta Corrente\n"));
+						+ "1 - Conta Poupanca\n" + "2 - Conta Corrente\n"));
 		conta.setTipoConta(tipo);
 
+		// MENU
 		while (true) {
 			int opcao = Integer.parseInt(JOptionPane
-					.showInputDialog("Escolha uma opção : \n"
-							+ "1 - Solicitar Informações de Depósito\n"
-							+ "2 - Solicitar Informaçoes de Saque\n"
-							+ "3 - Exibir Dados da Conta\n"
-							+ "4 - Exibir Extrato Completo\n"
-							+ "5 - Exibir Extrato de Depósitos\n"
-							+ "6 - Exibir Extrato de Saques\n" + "7 - Sair"));
+					.showInputDialog("Escolha uma opcao : \n"
+							+ "1 - Depositar\n"
+							+ "2 - Sacar\n"
+							+ "3 - Dados da Conta\n"
+							+ "4 - Extrato Completo\n"
+							+ "5 - Extrato de Depositos\n"
+							+ "6 - Extrato de Saques\n" + "7 - Sair"));
 
 			switch (opcao) {
 			case 1:
-				solicitarInformacoesDeposito(conta);
+				depositar(conta);
 				break;
 			case 2:
-				solicitarInformacoesSaque(conta);
+				sacar(conta);
 				break;
 			case 3:
-				exibirDadosDaConta(conta);
+				dadosDaConta(conta);
 				break;
 			case 4:
-				exibirExtratoCompleto(conta);
+				extratoCompleto(conta);
 				break;
 			case 5:
-				exibirExtratoDeDepositos(conta);
+				extratoDeDepositos(conta);
 				break;
 			case 6:
-				exibirExtratoDeSaques(conta);
+				extratoDeSaques(conta);
 				break;
 			case 7:
 				System.exit(0);
 				break;
 			case 8:
-				JOptionPane.showMessageDialog(null, "Opção Inexistente",
+				JOptionPane.showMessageDialog(null, "Opcao Inexistente",
 						"Erro", JOptionPane.OK_CANCEL_OPTION);
 				break;
 			}
 		}
-	}// Fim do m�todo exibirMenu
+	}// FIM MENU
 
-	// 1ª Opção do menu
-	public void solicitarInformacoesDeposito(Conta conta) {
+	// 1- Depositar
+	public void depositar(Conta conta) {
+		JOptionPane.showMessageDialog(null, "DEPOSITOS");
+		System.out.println("A data do deposito : " + mvto.dataFormato());
 
-		JOptionPane.showMessageDialog(null, "DEPÓSITOS");
-
-		System.out.println("A data do depósito : " + mvto.dataFormato());
-
-		int tipo = 1;/* Movimentaçãoo do tipo 2 (1-saque, 2-deposito) */
+		int tipo = 1;/* Dep�sito */
 		double valor = Double.parseDouble(JOptionPane
-				.showInputDialog("Vamos desapegar de quanto nesse depósito?"));
-		/* conta.depositar(valor); */
+				.showInputDialog("Vamos desapegar de quanto nesse deposito?"));
+		
 
-		// Criando objeto mvto
+		// Gerando deposito na conta
 		Movimentacao mvto = new Movimentacao();
-
-		// O valor � recebido na vari�vel sld
 		sld = conta.getSaldo();
-		// O novo saldo � a soma do valor mais o saldo original
-		sld = valor + sld;
-		// Setando o novo saldo no m�todo setSaldo que altera o atributo saldo
-		// da classe Conta
-		conta.setSaldo(sld);
-		// Tipo de movimenta��o � setado no atributo tipo da classe Movimenta��o
-		mvto.setTipo(tipo);
-		// Tipo de movimenta��o � setado no atributo valor da classe
-		// Movimenta��o
+		sld = valor + sld;		
+		conta.setSaldo(sld);		
+		mvto.setTipo(tipo);		
 		mvto.setValor(valor);
-		// Adicionar o objeto mvto ao objeto conta atrav�s do m�todo
-		// movimentacao criado na classe Conta
+		//conta recebe dep�sito
 		conta.movimentacao(mvto);
 
 	}
 
-	// 2ª Opção do menu
-	public void solicitarInformacoesSaque(Conta conta) {
+	// 2- Sacar
+	public void sacar(Conta conta) {
 		double valor = conta.getSaldo();
 
-		int tipo = 2;/* Movimenta��o do tipo 2 (1-saque, 2-deposito) */
+		int tipo = 2;/* Saque */
 		JOptionPane.showMessageDialog(null,
-				"Seu saldo é de " + conta.getSaldo() + ".");
+				"Seu saldo � de " + conta.getSaldo() + ".");
 		valor = Double.parseDouble(JOptionPane
 				.showInputDialog("Qual valor deseja sacar?"));
 
-		// Valida��o do saque at� saldo -1.000 negativo
-		/* CORRIGIR SAQUE COM -1000 */
+		// Validando limite da conta
 		if ((conta.getSaldo() > -1000) && (conta.getSaldo() - valor < -1000)) {
 			JOptionPane
 					.showMessageDialog(null,
-							"Mais que - $ 1.000 negativo não rola, cabou o limite queri.");
+							"Mais que - $ 1.000 negativo n�oo rola, cabou o limite queri.");
 		} else {
-			/* conta.sacar(valor); *//*
-									 * Recebe a string valor e usa no m�todo
-									 * sacar que altera o objeto conta
-									 */
-			Date data = new Date();/* Só cria a data se o saque for possível */
-			System.out.println("A data do saque é " + mvto.dataFormato());
-
-			// Criando objeto mvto para receber a manipulação dos atributos
-			// que serão manipulados apenas se o saque for possível
+			
+			Date data = new Date();
+			System.out.println("A data do saque � " + mvto.dataFormato());
+			
+			// Gerando saque na conta
 			Movimentacao mvto = new Movimentacao();
-
-			// O valor é recebido na variável sld
-			sld = conta.getSaldo();			
-			// O novo saldo é a soma do valor mais o saldo original
+			sld = conta.getSaldo();
 			sld = sld - valor;
-			// Setando o novo saldo no m�todo setSaldo que altera o atributo
-			// saldo
-			// da classe Conta
 			conta.setSaldo(sld);
-			// Tipo de movimenta��o � setado no atributo tipo da classe
-			// Movimenta��o
 			mvto.setTipo(tipo);
-			// Tipo de movimenta��o � setado no atributo valor da classe
-			// Movimenta��o
 			mvto.setValor(valor);
-			// Adicionar o objeto mvto ao objeto conta atrav�s do m�todo
-			// movimentacao criado na classe Conta
+			//conta recebe saque
 			conta.movimentacao(mvto);
 		}
 	}
 
-	// 3ª Opção do menu
-	public void exibirDadosDaConta(Conta conta) {
+	// 3- Dados da Conta
+	public void dadosDaConta(Conta conta) {
 		JOptionPane.showMessageDialog(null,
 				"Titular da conta: " + conta.getTitularDaConta() + "\n"
 						+ "Saldo em conta: $" + conta.getSaldo());
@@ -161,30 +134,31 @@ public class InterfaceGrafica {
 		System.out.println("Saldo em conta: $" + conta.getSaldo());
 	}
 
-	// 4ª Opção do menu
-	public void exibirExtratoCompleto(Conta conta) {
+	// 4- Extrato Completo
+	public void extratoCompleto(Conta conta) {
 		if (conta.getTitularDaConta() == "") {
-			JOptionPane.showMessageDialog(null, "Errou a conta não existe.");
+			JOptionPane.showMessageDialog(null, "Errou a conta n�o existe.");
 		} else {
 
+			//Imprime todos os movimentos
 			String extrato = "", tpMvto = "", msgTela = "", tpConta = "";
 			for (Movimentacao mvto : conta.getListaDeMovimentacao()) {
 				if (mvto.getTipo() == 1) {
-					tpMvto = "Depósito";
+					tpMvto = "Dep�sito";
 				} else {
 					tpMvto = "Saque";
 				}
 				if (conta.getTipoConta() == 1) {
 					tpConta = "Conta Corrente";
 				} else {
-					tpConta = "Conta Poupança";
+					tpConta = "Conta Poupan�a";
 				}
 				msgTela = "----------------------------------------------\n"
 						+ "|             EXTRATO COMPLETO                |\n"
 						+ "----------------------------------------------\n"
 						+ "Titular: " + conta.getTitularDaConta() + "\n"
 						+ "Tipo da Conta:" + tpConta;
-				extrato += "Tipo da movimentação: " + tpMvto + "\n" + "Valor: "
+				extrato += "Tipo da movimenta��oo: " + tpMvto + "\n" + "Valor: "
 						+ mvto.getValor() + "\n" + "Data: "
 						+ mvto.dataFormato() + "\n";
 
@@ -194,29 +168,31 @@ public class InterfaceGrafica {
 		}
 	}
 
-	// 5ª Opção do menu
-	public void exibirExtratoDeDepositos(Conta conta) {
+	// 5- Extrato de Dep�sitos
+	public void extratoDeDepositos(Conta conta) {
 		if (conta.getListaDeMovimentacao() == null) {
 			JOptionPane.showMessageDialog(null,
-					"Errou a conta não tem depósitos.");
+					"Errou a conta n�o tem dep�sitos.");
 		} else {
+			
+			// Imprime apenas dep�sitos
 			String extrato = "", tpMvto = "", msgTela = "", tpConta = "";
 			for (Movimentacao mvto : conta.getListaDeMovimentacao()) {
 				if (mvto.getTipo() == 1) {
-					tpMvto = "Depósito";
+					tpMvto = "Dep�sito";
 					if (conta.getTipoConta() == 1) {
 						tpConta = "Conta Corrente";
 					} else {
-						tpConta = "Conta Poupança";
+						tpConta = "Conta Poupan�a";
 					}
 					msgTela = "----------------------------------------------\n"
-							+ "|          EXTRATO DE DEPÓSITOS              |\n"
+							+ "|          EXTRATO DE DEP�SITOS              |\n"
 							+ "----------------------------------------------\n"
 							+ "Titular: "
 							+ conta.getTitularDaConta()
 							+ "\n"
 							+ "Tipo da Conta:" + tpConta;
-					extrato += "Tipo da movimentação: " + tpMvto + "\n"
+					extrato += "Tipo da movimenta��oo: " + tpMvto + "\n"
 							+ "Valor: " + mvto.getValor() + "\n" + "Data: "
 							+ mvto.dataFormato() + "\n";
 
@@ -227,13 +203,13 @@ public class InterfaceGrafica {
 		}
 	}
 
-	// 6� Op��o do menu
-	public void exibirExtratoDeSaques(Conta conta) {
+	// 6- Extrato de Saques
+	public void extratoDeSaques(Conta conta) {
 		if (conta.getListaDeMovimentacao() == null) {
 			JOptionPane
-					.showMessageDialog(null, "Errou a conta não tem saques.");
+					.showMessageDialog(null, "Errou a conta n�oo tem saques.");
 		} else {
-
+			//Imprime apenas saques
 			String extrato = "", tpMvto = "", msgTela = "", tpConta = "";
 			for (Movimentacao mvto : conta.getListaDeMovimentacao()) {
 				if (mvto.getTipo() == 2) {
@@ -242,7 +218,7 @@ public class InterfaceGrafica {
 					if (conta.getTipoConta() == 1) {
 						tpConta = "Conta Corrente";
 					} else {
-						tpConta = "Conta Poupança";
+						tpConta = "Conta Poupan�a";
 					}
 					msgTela = "----------------------------------------------\n"
 							+ "|           EXTRATO DE SAQUES                |\n"
@@ -251,7 +227,7 @@ public class InterfaceGrafica {
 							+ conta.getTitularDaConta()
 							+ "\n"
 							+ "Tipo da Conta:" + tpConta;
-					extrato += "Tipo da movimentação: " + tpMvto + "\n"
+					extrato += "Tipo da movimenta��oo: " + tpMvto + "\n"
 							+ "Valor: " + mvto.getValor() + "\n" + "Data: "
 							+ mvto.dataFormato() + "\n";
 

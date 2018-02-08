@@ -6,40 +6,33 @@ import java.util.List;
 
 public class Movimentacao {
 
-	// Atributos da Classe Movimentacao
-	/*private String data; String data foi substituï¿½da pelo componente data do tipo Date*/	
-	private int tipo;/*(1-saque, 2-deposito)*/
+	// Atributos da Movimentacao		
+	private int tipo;/*(1-deposito, 2-saque)*/
 	private double valor;
 	private Date data = new Date();
 	
-	// Getters e Setters abaixo, respectivamente buscam e alteram atributos da
-	// classe Movimentacao//
-
-	// Mï¿½todo que busca(get) o tipo de movimentaï¿½ï¿½o
+	// Métodos que alteram atributos da Movimentacao
+	// Busca o tipo
 	public int getTipo() {
-		return this.tipo;// retorna o tipo de movimentaï¿½ï¿½o quando o
-							// mï¿½todo getTipo for usado
+		return this.tipo;
 	}
 
-	// Mï¿½todo que recebe a alteraï¿½ï¿½o(set) do Tipo(atributo) da conta
+	// Altera o tipo do mvto
 	public void setTipo(int tipo) {
-		this.tipo = tipo;// recebe a alteraï¿½ï¿½o do double tipo da movimentaï¿½ï¿½o
-							// quando o
-							// mï¿½todo setTipo for usado
+		this.tipo = tipo;
 	}
 
-	// Mï¿½todo que busca(get) o valor da movimentaï¿½ï¿½o
+	// Busca o valor do mvto
 	public double getValor() {
-		return this.valor;// retorna o valor da movimentaï¿½ï¿½o quando o
-							// mï¿½todo getValor for usado
+		return this.valor;
 	}
 
-	// Mï¿½todo que recebe a alteraï¿½ï¿½o(set) do valor(atributo) da conta
+	// Altera o valor do mvto
 	public void setValor(double valor) {
-		this.valor = valor;// recebe a alteraï¿½ï¿½o do double valor da movimentaï¿½ï¿½o
-							// quando o
-							// mï¿½todo setValor for usado
+		this.valor = valor;
 	}
+	
+	// Formata Data do mvto
 	public String dataFormato(){
 		SimpleDateFormat dataFormato =  new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		return dataFormato.format(data);
